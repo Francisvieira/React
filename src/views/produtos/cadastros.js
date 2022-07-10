@@ -1,38 +1,80 @@
 import React from 'react'
-
-const estadoInicial={
+import ProdutoService from '../../app/produtoService'
+const estadoInicial = { //essa const é para limpar os campos
     nome: '',
     sku: '',
     preço: "",
     descrição: '',
-    fornecedor: ''
+    fornecedor: '',
+    sucesso: false,
+    errors:[]
 }
 
 class CadastroProduto extends React.Component {
 
-    state = estadoInicial
-      
-    
+    state = estadoInicial // state para o estado inicial 
+    constructor() {
+        super()
+        this.service = new ProdutoService();
+    }
     onChange = (event) => {
         const valor = event.target.value
         const nomeDoCampo = event.target.name
         this.setState({ [nomeDoCampo]: valor })
     }
     onSubmit = (event) => {
-        console.log(this.state)
+
+        const produto = {
+            nome: this.state.nome,
+            sku: this.state.sku,
+            preço: this.state.preço,
+            descrição: this.state.descrição,
+            fornecedor: this.state.fornecedor,
+        }
+        try {
+            this.service.salvar(produto)
+            this.limpaCampo()
+            this.setState({ sucesso: true })
+        } catch (erro) {
+            const errors = erro.errors
+            this.setState({errors : errors})
+         }
+        
     }
-    limpaCampo= () => {
-        this.setState(estadoInicial)
-    
+
+    limpaCampo = () => {
+        this.setState(estadoInicial) //função limpar os campos da tabela de cadastro de produtos  
     }
 
     render() {
+
         return (
             <div className="card">
                 <div className="card-header">
                     Cadastro de Produtos
                 </div>
+
                 <div className="card-body">
+
+                    {this.state.sucesso &&
+                        //alerta para notificar que o produto foi cadastrado
+                        <div class="alert alert-dismissible alert-success">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong>Tudo Ok !</strong> Produto Cadastrado com Sucesso!.
+                            </div>
+                    }
+                       { this.state.errors.length >0 &&
+                            this.state.errors.map(msg =>{
+                                return(//alerta para notificar que ocorreu um erro
+                                    <div class="alert alert-dismissible alert-danger">
+                                       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                       <strong>Erro!</strong>{msg}
+                                   </div>
+
+                                )
+                            })
+                        
+                       }
 
                     <div className="row">
 
@@ -76,7 +118,7 @@ class CadastroProduto extends React.Component {
                                 <label>Preço:*</label>
                                 <input name="preço"
                                     onChange={this.onChange}
-                                    type="text" value={this.state.preço}
+                                    type="text" placeholder="R$:" value={this.state.preço}
                                     className="form-control" />
                             </div>
                         </div>
