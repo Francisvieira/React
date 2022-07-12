@@ -7,9 +7,8 @@ const estadoInicial = { //essa const é para limpar os campos
     descrição: '',
     fornecedor: '',
     sucesso: false,
-    errors:[]
+    errors: []
 }
-
 class CadastroProduto extends React.Component {
 
     state = estadoInicial // state para o estado inicial 
@@ -23,7 +22,6 @@ class CadastroProduto extends React.Component {
         this.setState({ [nomeDoCampo]: valor })
     }
     onSubmit = (event) => {
-
         const produto = {
             nome: this.state.nome,
             sku: this.state.sku,
@@ -37,17 +35,13 @@ class CadastroProduto extends React.Component {
             this.setState({ sucesso: true })
         } catch (erro) {
             const errors = erro.errors
-            this.setState({errors : errors})
-         }
-        
+            this.setState({ errors: errors })
+        }
     }
-
     limpaCampo = () => {
         this.setState(estadoInicial) //função limpar os campos da tabela de cadastro de produtos  
     }
-
     render() {
-
         return (
             <div className="card">
                 <div className="card-header">
@@ -63,21 +57,20 @@ class CadastroProduto extends React.Component {
                             <strong>Tudo Ok !</strong> Produto Cadastrado com Sucesso!.
                             </div>
                     }
-                       { this.state.errors.length >0 &&
-                            this.state.errors.map(msg =>{
-                                return(//alerta para notificar que ocorreu um erro
-                                    <div class="alert alert-dismissible alert-danger">
-                                       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                       <strong>Erro!</strong>{msg}
-                                   </div>
+                    {this.state.errors.length > 0 &&
+                        this.state.errors.map(msg => {
+                            return (//alerta para notificar que ocorreu um erro
+                                <div class="alert alert-dismissible alert-danger">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    <strong>Erro!</strong>{msg}
+                                </div>
 
-                                )
-                            })
-                        
-                       }
+                            )
+                        })
+
+                    }
 
                     <div className="row">
-
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label>Nome:*</label>
@@ -86,7 +79,6 @@ class CadastroProduto extends React.Component {
                                     value={this.state.nome}
                                     onChange={this.onChange}
                                     className="form-control" />
-
                             </div>
                         </div>
 
@@ -110,7 +102,6 @@ class CadastroProduto extends React.Component {
                                         className="form-control"></textarea>
                                 </div>
                             </div>
-
                         </div>
 
                         <div className="col-md-6">
