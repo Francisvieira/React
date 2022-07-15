@@ -1,5 +1,5 @@
 import React from 'react'
-
+import{Link} from 'react-router-dom'
 // criei a navbar.js 
 function Navbar() {
     return (
@@ -9,7 +9,7 @@ function Navbar() {
                 <button className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#navbarColor01"
+                    dLinkta-bs-target="#navbarColor01"
                     aria-controls="navbarColor01"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -19,23 +19,23 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item active">
-                            <a className="nav-link" href="#">Início
-            <span className="visually-hidden">(current)</span>
-                            </a>
+                            <Link className="nav-link" to ="/">Início
+                    <span className="visually-hidden">(current)</span>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Cadastro</a>
+                            <Link className="nav-link" to="/cadastro-produtos">Cadastro</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Consulta</a>
+                            <Link className="nav-link" to="/consulta-produtos">Consulta</Link>
                         </li>
-                        
+
                     </ul>
-                  
-    </div>
+
                 </div>
-</nav>
-)
+            </div>
+        </nav>
+    )
 }
 
 //exportei a navnar
